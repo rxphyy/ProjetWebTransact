@@ -26,7 +26,7 @@ public class CouponController {
      */
     @GetMapping("/coupons")
     public String fetchCouponsForSeance(@RequestParam Long seanceId, Model model) {
-        model.addAttribute("coupons", couponService.fetchAllCouponsForSeanceId(seanceId));
+        model.addAttribute("coupons", couponService.fetchCouponsNonReservesForSeanceId(seanceId));
         model.addAttribute("seance", seanceService.findById(seanceId));
 
         return "coupons";
@@ -43,7 +43,7 @@ public class CouponController {
     @PostMapping("/coupons")
     public String couponsPurchase(@RequestParam String clientName, @RequestParam(value = "selectedCoupons", required = false) List<Long> selectedCoupons, @RequestParam Long seanceId, Model model) {
         couponService.processCouponsPurchase(selectedCoupons, clientName);
-        model.addAttribute("coupons", couponService.fetchAllCouponsForSeanceId(seanceId));
+        model.addAttribute("coupons", couponService.fetchCouponsNonReservesForSeanceId(seanceId));
         model.addAttribute("seance", seanceService.findById(seanceId));
 
         return "coupons";

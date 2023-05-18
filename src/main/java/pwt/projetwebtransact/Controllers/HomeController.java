@@ -12,7 +12,4 @@ public class HomeController {
     public String Homepage() {
         return "home"; // Retourne le modèle 'home' qui contient une page d'accueil
     }
-
-    // TODO: Add places
-    // TODO: Comment code
 }

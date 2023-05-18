@@ -52,9 +52,10 @@ public class CouponService {
      * @param seanceId Id de la séance consultée
      * @return Liste des coupons de la séance, triés par tarif
      */
-    public List<Coupon> fetchAllCouponsForSeanceId(Long seanceId) {
+    public List<Coupon> fetchCouponsNonReservesForSeanceId(Long seanceId) {
         Seance seance = seanceRepository.findById(seanceId).get();  // On trouve la séance correspondant à l'Id
         return couponRepository.findAllByPresentationID(seance.getPresentation().getID()).stream()  // On filtre pour la séance choisie
+                .filter(coupon -> !coupon.isReserve())  // On filtre les coupons qui ne sont Reserve = false
                 .sorted(Comparator.comparingDouble(Coupon::getTarif))   // On trie par tarif
                 .collect(Collectors.toList());
     }
