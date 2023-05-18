@@ -10,5 +10,11 @@ import java.util.List;
 
 @Repository
 public interface SalleRepository extends JpaRepository<Salle, Long> {
-    public List<Salle> findSallesByEtablissement(Etablissement etablissement);
+    /**
+     * Recherche les salles d'un établissement.
+     *
+     * @param etablissement l'établissement consulté
+     * @return une liste des salles de l'établissement
+     */
+    List<Salle> findSallesByEtablissement(Etablissement etablissement);
 }

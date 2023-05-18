@@ -8,8 +8,8 @@
 </head>
 <body>
 <div class="p-3 mb-2 bg-dark text-white" style="margin: auto; text-align: center">
-  <h1 style="font-weight: bold; margin: 10% auto 10px auto; width: fit-content">Séances du cours []</h1>
-  <a th:href="@{/seances(etablissementId=${etablissementId}, villeId=${villeId})}">
+  <h1 style="font-weight: bold; margin: 10% auto 10px auto; width: fit-content" th:text="'Séances du cours ' + ${cours.getTitre()}"></h1>
+  <a th:href="@{/details(etablissementId=${etablissementId}, villeId=${villeId})}">
     <button style="font-weight: bold; margin: 20px 0px" class="btn btn-outline-primary">Retourner</button>
   </a>
   <table style="border-collapse: collapse; width: fit-content; margin: auto">
@@ -27,14 +27,9 @@
       <td style="border: 1px solid white; padding: 0px 10px" th:text="${seance.code}"></td>
       <td style="border: 1px solid white; padding: 0px 10px" th:text="${seance.heureDebut}"></td>
       <td style="border: 1px solid white; padding: 5px 10px">
-        <a th:href="@{/couponsReserves(seanceId=${seance.ID})}">
-          <button type="button" class="btn btn-primary">
-            <i class="fa-solid fa-ticket"></i> Coupons réservés
-          </button>
-        </a>
         <a th:href="@{/coupons(seanceId=${seance.ID})}">
           <button type="button" class="btn btn-secondary">
-            <i class="fa-solid fa-passport"></i> Tous les coupons
+            <i class="fa-solid fa-ticket"></i> Coupons
           </button>
         </a>
       </td>

@@ -9,5 +9,11 @@ import java.util.List;
 
 @Repository
 public interface PresentationRepository extends JpaRepository<Presentation, Long> {
-    public List<Presentation> findPresentationsBySalle(Salle salle);
+    /**
+     * Recherche les présentations d'une salle.
+     *
+     * @param salle la salle consultée
+     * @return une liste des présentations de la salle
+     */
+    List<Presentation> findPresentationsBySalle(Salle salle);
 }

@@ -9,7 +9,7 @@
 <body>
 <div class="p-3 mb-2 bg-dark text-white" style="margin: auto; text-align: center">
     <h1 th:text="'Détails de ' + ${etablissement.titre}" style="font-weight: bold; margin: 10% auto 10px auto; width: fit-content"></h1>
-    <a th:href="@{/etablissements/{villeId}(villeId=${villeId})}">
+    <a th:href="@{/etablissements/{villeId}(villeId=${etablissement.getVille().getID()})}">
         <button style="font-weight: bold; margin: 20px 0px" class="btn btn-outline-primary">Retourner</button>
     </a>
     <h1 style="font-weight: bold; margin: auto auto 10px auto; width: fit-content">Présentations:</h1>
@@ -28,7 +28,7 @@
             <td style="border: 1px solid white; padding: 0px 10px" th:text="${presentation.salle.getNom()}"></td>
             <td style="border: 1px solid white; padding: 0px 10px" th:text="${presentation.cours.getTitre()}"></td>
             <td style="border: 1px solid white; padding: 5px 10px">
-                <a th:href="@{/seances(coursId=${presentation.getCours().getID()}, etablissementId=${etablissement.ID}, villeId=${villeId})}">
+                <a th:href="@{/seances(coursId=${presentation.getCours().getID()}, etablissementId=${etablissement.ID}, villeId=${etablissement.getVille().getID()})}">
                     <button type="button" class="btn btn-primary">
                         <i class="fa-solid fa-circle-info"></i> Séances du cours
                     </button>

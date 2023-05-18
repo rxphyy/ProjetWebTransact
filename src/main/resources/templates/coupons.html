@@ -9,35 +9,54 @@
 <body>
 <div class="p-3 mb-2 bg-dark text-white" style="margin: auto; text-align: center">
   <h1 style="font-weight: bold; margin: 10% auto 10px auto; width: fit-content">Coupons</h1>
-  <a th:href="@{/}">
-    <button style="font-weight: bold; margin: 20px 0px" class="btn btn-outline-primary">Retourner</button>
+  <a th:href="@{/seances(coursId=${seance.getPresentation().getCours().getID()}, etablissementId=${seance.getPresentation().getSalle().getEtablissement().getID()}, villeId=${seance.getPresentation().getSalle().getEtablissement().getVille().getID()})}">
+    <button style="font-weight: bold; margin: 20px 0px 0px auto" class="btn btn-outline-primary">Retourner</button>
   </a>
 
-  <form th:action="@{/couponsPurchase}" method="post">
+  <form th:action="@{/coupons(seanceId=${seance.getID()})}" method="post">
+    <div class="input-block" style="width: fit-content; margin: auto auto 30px auto;">
+      <h2 style="margin: 30px auto 10px auto">Commander des coupons</h2>
+      <input required type="text" placeholder="Nom du client" class="form-control" name="clientName">
+    </div>
     <table style="border-collapse: collapse; width: fit-content; margin: auto">
       <thead>
       <tr>
         <th style="border: 1px solid white; padding: 3px 10px">ID</th>
         <th style="border: 1px solid white; padding: 3px 10px">Code</th>
+        <th style="border: 1px solid white; padding: 3px 10px">Nom du client</th>
         <th style="border: 1px solid white; padding: 3px 10px">Tarif</th>
+        <th style="border: 1px solid white; padding: 3px 10px">Code de paiement</th>
         <th style="border: 1px solid white; padding: 3px 10px">Reservé</th>
         <th style="border: 1px solid white; padding: 3px 10px">Choisir</th>
       </tr>
       </thead>
       <tbody>
-      <tr th:each="coupon : ${coupons}">
+      <tr th:each="coupon : ${coupons}" th:style="${!coupon.reserve} ? 'background-color: #3f464d' : ''">
         <td style="border: 1px solid white; padding: 3px 10px" th:text="${coupon.ID}"></td>
         <td style="border: 1px solid white; padding: 3px 10px" th:text="${coupon.code}"></td>
-        <td style="border: 1px solid white; padding: 3px 10px" th:text="${coupon.tarif}"></td>
-        <td style="border: 1px solid white; padding: 3px 10px" th:text="${coupon.reserve}"></td>
-        <td style="border: 1px solid white; padding: 3px 10px"><input type="checkbox" th:name="selectedCoupons" th:value="${coupon.ID}" /></td>
+        <td style="border: 1px solid white; padding: 3px 10px" >
+          <span th:text="${coupon.reserve ? coupon.nomClient : '-'}"></span>
+          <!--<span th:unless="${coupon.reserve}">Non</span> -->
+        </td>
+        <td style="border: 1px solid white; padding: 3px 10px" th:text="${coupon.tarif} + ' $'"></td>
+        <td style="border: 1px solid white; padding: 3px 10px">
+          <span th:text="${coupon.reserve ? coupon.codePaiement : '-'}"></span>
+        </td>
+        <td style="border: 1px solid white; padding: 3px 10px">
+          <span th:if="${coupon.reserve}">Oui</span>
+          <span th:unless="${coupon.reserve}">Non</span>
+        </td>
+        <td style="border: 1px solid white; padding: 3px 10px">
+          <span th:if="${!coupon.reserve}">
+            <input type="checkbox" th:name="selectedCoupons" th:value="${coupon.ID}" />
+          </span>
+          <span th:if="${coupon.reserve}">-</span>
+        </td>
       </tr>
       </tbody>
     </table>
-
     <div class="input-block" style="width: fit-content; margin: 10px auto;">
-      <input type="text" placeholder="Nom du client" class="form-control" name="clientName">
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary" style="margin: 20px auto">Passer la commande</button>
     </div>
   </form>
 

@@ -1,27 +1,27 @@
 package pwt.projetwebtransact.Controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import pwt.projetwebtransact.Entities.Coupon;
 import pwt.projetwebtransact.Entities.Place;
-import pwt.projetwebtransact.Services.CouponService;
 import pwt.projetwebtransact.Services.PlaceService;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api")
+// Controller 'Place' qui s'occupe des pages concernant les places
+@Controller
+@AllArgsConstructor
 public class PlaceController {
-    @Autowired
+
+    // Définition des services nécessaires au Controller
     private PlaceService placeService;
 
+    /**
+     * (GET) Retourne toutes les places.
+     * @return Une liste de toutes les places
+     */
     @GetMapping("/places")
     public List<Place> fetchAllPlaces() {
         return placeService.fetchAllPlaces();
-    }
-
-    @PostMapping("/addPlace")
-    public Place addPlaces(@RequestBody Place place) {
-        return placeService.addNewPlace(place);
     }
 }

@@ -9,5 +9,11 @@ import java.util.List;
 
 @Repository
 public interface EtablissementRepository extends JpaRepository<Etablissement, Long> {
-    public List<Etablissement> findEtablissementsByVille(Ville ville);
+    /**
+     * Recherche les établissements d'une ville.
+     *
+     * @param ville la ville recherchée
+     * @return une liste d'établissements correspondant à la ville spécifiée
+     */
+    List<Etablissement> findEtablissementsByVille(Ville ville);
 }
